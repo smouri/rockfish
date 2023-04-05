@@ -1,4 +1,4 @@
-package: github.com/Reidmcc/rockfish
+package: github.com/smouri/rockfish
 import:
 - package: github.com/interstellar/kelp
   subpackages:
