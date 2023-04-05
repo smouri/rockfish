@@ -102,7 +102,7 @@ Open your command line or bash to the directory where you placed the "rockfish" 
 
 Enter the start command, in this format:
 
-`./rockfish arbitcycle --botConf /path/arbitconfig.cfg --stratConf /path/arbitcycle.cfg`
+`./rockfish arbitcycle --botConf ../examples/sample_arbitconfig.cfg --stratConf ../examples/sample_arbitcycle.cfg`
 
 Where the `/path` strings are the full paths to your configuration files and their filenames.
 

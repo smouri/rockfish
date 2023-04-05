@@ -11,7 +11,8 @@ import (
 	"github.com/nikhilsaraf/go-tools/multithreading"
 	"github.com/pkg/errors"
 	"github.com/stellar/go/build"
-	"github.com/stellar/go/clients/horizon"
+	// "github.com/stellar/go/clients/horizon"
+	"github.com/stellar/go/clients/horizonclient"
 )
 
 const baseReserve = 0.5
@@ -21,7 +22,7 @@ const maxPageLimit = 200
 
 // DexAgent manages all transactions with the Stellar DEX
 type DexAgent struct {
-	API               *horizon.Client
+	API               *horizonclient.Client
 	SourceSeed        string
 	TradingSeed       string
 	SourceAccount     string
@@ -48,7 +49,7 @@ type TransData struct {
 
 // MakeDexAgent is the factory method
 func MakeDexAgent(
-	api *horizon.Client,
+	api *horizonclient.Client,
 	sourceSeed string,
 	tradingSeed string,
 	sourceAccount string,
@@ -103,9 +104,32 @@ func (dA *DexAgent) incrementSeqNum() {
 	dA.seqNum++
 }
 
-// JustAssetBalance returns asset balance
-func (dA *DexAgent) JustAssetBalance(asset horizon.Asset) (float64, error) {
-	account, err := dA.API.LoadAccount(dA.TradingAccount)
+// // JustAssetBalance returns asset balance
+// func (dA *DexAgent) JustAssetBalance(asset horizon.Asset) (float64, error) {
+// 	account, err := dA.API.LoadAccount(dA.TradingAccount)
+// 	if err != nil {
+// 		return -1, fmt.Errorf("error: unable to load account to fetch balance: %s", err)
+// 	}
+
+//		for _, balance := range account.Balances {
+//			if utils.AssetsEqual(balance.Asset, asset) {
+//				b, e := strconv.ParseFloat(balance.Balance, 64)
+//				if e != nil {
+//					return -1, fmt.Errorf("error: cannot parse balance: %s", e)
+//				}
+//				if balance.Asset.Type == utils.Native {
+//					return b - (dA.minReserve(account.SubentryCount) + dA.operationalBuffer), e
+//				}
+//				return b, e
+//			}
+//		}
+//		return -1, errors.New("could not find a balance for the asset passed in")
+//	}
+//
+// JustAssetBalance returns the balance of the given asset for the trading account
+func (dA *DexAgent) JustAssetBalance(asset horizonclient.Client) (float64, error) {
+	accountRequest := horizonclient.AccountRequest{AccountID: dA.TradingAccount}
+	account, err := dA.API.AccountDetail(accountRequest)
 	if err != nil {
 		return -1, fmt.Errorf("error: unable to load account to fetch balance: %s", err)
 	}
@@ -181,8 +205,8 @@ func (dA *DexAgent) sign(tx *build.TransactionBuilder) (string, error) {
 func (dA *DexAgent) submit(txeB64 string, asyncCallback func(hash string, e error)) {
 	resp, err := dA.API.SubmitTransaction(txeB64)
 	if err != nil {
-		if herr, ok := errors.Cause(err).(*horizon.Error); ok {
-			var rcs *horizon.TransactionResultCodes
+		if herr, ok := errors.Cause(err).(*horizonclient.Error); ok {
+			var rcs *horizonclient.TransactionResultCodes
 			rcs, err = herr.ResultCodes()
 			if err != nil {
 				dA.l.Infof("(async) error: no result codes from horizon: %s\n", err)
