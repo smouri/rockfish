@@ -10,7 +10,8 @@ import (
 	"github.com/interstellar/kelp/support/utils"
 	"github.com/nikhilsaraf/go-tools/multithreading"
 	"github.com/pkg/errors"
-	"github.com/stellar/go/build"
+	// "github.com/stellar/go/build"
+	"github.com/stellar/go/network"
 	// "github.com/stellar/go/clients/horizon"
 	"github.com/stellar/go/clients/horizonclient"
 )
@@ -27,7 +28,7 @@ type DexAgent struct {
 	TradingSeed       string
 	SourceAccount     string
 	TradingAccount    string
-	Network           build.Network
+	Network           network.Passphrase
 	threadTracker     *multithreading.ThreadTracker
 	rateLimiter       func()
 	submitDone        chan<- bool
@@ -54,7 +55,7 @@ func MakeDexAgent(
 	tradingSeed string,
 	sourceAccount string,
 	tradingAccount string,
-	network build.Network,
+	network network.Passphrase,
 	threadTracker *multithreading.ThreadTracker,
 	rateLimiter func(),
 	submitDone chan<- bool,

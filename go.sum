@@ -121,6 +121,8 @@ github.com/stellar/go v0.0.0-20180823123450-5bbd27814a3f h1:tlgK8Zaz9EVhnS8NdF04
 github.com/stellar/go v0.0.0-20180823123450-5bbd27814a3f/go.mod h1:Kkro8X6IWn/5XtSicGd6N2LZKMKUCWS5wS5Ctjh6+Vw=
 github.com/stellar/go v0.0.0-20230330225610-ed1e55bfdfbd h1:MIrlAy3jHPO77PF55x5ohSTGuV9ZlliH9SzNMVfZ6bI=
 github.com/stellar/go v0.0.0-20230330225610-ed1e55bfdfbd/go.mod h1:DHmAo7QjGEJa0yef6NXOh+083h/S6OsdRhOwav6Om1A=
+github.com/stellar/go v0.0.0-20230406070837-6c5193d6b0b3 h1:+YES9W+zMiWTi9LOq0EdzhyNUVmTP6UzoSWdWhCJQtk=
+github.com/stellar/go v0.0.0-20230406070837-6c5193d6b0b3/go.mod h1:DHmAo7QjGEJa0yef6NXOh+083h/S6OsdRhOwav6Om1A=
 github.com/stellar/go-xdr v0.0.0-20211103144802-8017fc4bdfee h1:fbVs0xmXpBvVS4GBeiRmAE3Le70ofAqFMch1GTiq/e8=
 github.com/stellar/go-xdr v0.0.0-20211103144802-8017fc4bdfee/go.mod h1:yoxyU/M8nl9LKeWIoBrbDPQ7Cy+4jxRcWcOayZ4BMps=
 github.com/stretchr/objx v0.1.0 h1:4G4v2dO3VZwixGIRoQ5Lfboy6nUhCyYzaqnIAPPhYs4=

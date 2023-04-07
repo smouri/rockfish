@@ -6,10 +6,12 @@ import (
 	"runtime/pprof"
 	"time"
 
-	"github.com/Reidmcc/rockfish/modules"
+	// "github.com/Reidmcc/rockfish/modules"
 	"github.com/interstellar/kelp/support/logger"
 	"github.com/nikhilsaraf/go-tools/multithreading"
-	"github.com/stellar/go/clients/horizon"
+	"github.com/smouri/rockfish/modules"
+	// "github.com/stellar/go/clients/horizon"
+	"github.com/stellar/go/clients/horizonclient"
 )
 
 // Arbitrageur is the bot struct
@@ -20,8 +22,8 @@ type Arbitrageur struct {
 	threadTracker *multithreading.ThreadTracker
 	simMode       bool
 	rateLimiter   func()
-	booksOut      <-chan *horizon.OrderBookSummary
-	ledgerOut     <-chan horizon.Ledger
+	booksOut      <-chan horizonclient.OrderBookRequest
+	ledgerOut     <-chan horizonclient.LedgerRequest
 	findIt        chan<- bool
 	pathReturn    <-chan modules.PathFindOutcome
 	refresh       chan<- bool
@@ -40,8 +42,8 @@ func MakeArbitrageur(
 	threadTracker *multithreading.ThreadTracker,
 	rateLimiter func(),
 	simMode bool,
-	booksOut chan *horizon.OrderBookSummary,
-	ledgerOut chan horizon.Ledger,
+	booksOut chan horizonclient.OrderBookRequest,
+	ledgerOut chan horizonclient.LedgerRequest,
 	findIt chan<- bool,
 	pathReturn <-chan modules.PathFindOutcome,
 	refresh chan<- bool,

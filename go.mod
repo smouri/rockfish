@@ -9,7 +9,7 @@ require (
 	github.com/nikhilsaraf/go-tools v0.0.0-20181201005421-19004f22be08
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v0.0.3
-	github.com/stellar/go v0.0.0-20230330225610-ed1e55bfdfbd
+	github.com/stellar/go v0.0.0-20230406070837-6c5193d6b0b3
 )
 
 require (
